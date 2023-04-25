@@ -1,0 +1,5 @@
+package com.semi.product.model.vo;
+
+public class Product {
+
+}
