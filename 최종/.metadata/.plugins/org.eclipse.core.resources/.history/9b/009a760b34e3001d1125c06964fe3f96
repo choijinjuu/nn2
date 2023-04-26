@@ -1,0 +1,14 @@
+package com.semi.product.model.vo;
+
+import java.sql.Date;
+
+public class Review {
+
+	int reviewNo;			//	REVIEW_NO	NUMBER
+	int memberNo;			//	MEMBER_NO	NUMBER
+	int productNo;			//	PRODUCT_NO	NUMBER
+	int review;				//	REVIEW_STAR	NUMBER
+	String reviewContent;	//	REVIEW_CONTENT	VARCHAR2(600 BYTE)
+	Date createDate;		//	CREATE_DATE	DATE
+	String status;			//	STATUS	CHAR(3 BYTE)
+}

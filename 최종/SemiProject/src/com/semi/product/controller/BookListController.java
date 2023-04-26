@@ -58,9 +58,9 @@ public class BookListController extends HttpServlet {
 				
 				PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
 				
-				System.out.println("겟 옴..");
+//				System.out.println("겟 옴..");
 				String cate = request.getParameter("cate");
-				System.out.println(cate);
+//				System.out.println(cate);
 				
 				ArrayList<Product> list = null;
 				
@@ -83,44 +83,5 @@ public class BookListController extends HttpServlet {
 			 */
 			protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
-				//카테고리 넘버
-				String cate = request.getParameter("cate");
-				//System.out.println(cate);
-				
-				//페이징바 처리
-				int listCount; //현재 총 게시글의 개수
-				int currentPage; //현재 페이지
-				int pageLimit; //페이지 하단에 보여질 페이징바의 페이지 최대 개수
-				int boardLimit; //한 페이지에 보여질 게시글 최대 개수
-				
-				int maxPage; //가장 마지막 페이지가 몇인지 (총 페이지 개수)
-				int startPage; //페이지 하단에 보여질 페이징바의 시작수
-				int endPage; //페이지 하단에 보여질 페이징바의 끝 수
-				
-				listCount = new ProductService().selectListCount();
-				currentPage = Integer.parseInt(request.getParameter("currentPage").trim());
-				pageLimit = 10;
-				boardLimit = 8;
-				
-				maxPage = (int)Math.ceil((double)listCount/boardLimit);
-				startPage = (currentPage-1)/pageLimit*pageLimit+1;
-				endPage = startPage+pageLimit-1;
-				
-				if(endPage>maxPage) {
-					endPage = maxPage;
-				}
-				
-				PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-				
-				//페이지에 보여질 게시글 리스트
-				ArrayList<Product> list = new ProductService().selectAttachmentCList(pi,cate);
-				
-				request.setAttribute("list", list);
-				request.setAttribute("pi", pi);
-				
-				//System.out.println(list);
-				
-				response.setContentType("application/json; charset=UTF-8");
-				new Gson().toJson(list,response.getWriter());
 	}
 }

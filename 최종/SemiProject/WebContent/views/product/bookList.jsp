@@ -250,6 +250,10 @@
         	text-align: center;
         }
         
+        #num{
+        	cursor: pointer;
+        }
+        
         /*가격--------------------------------------------------------*/
         #tr_3{
             /* background-color: aqua; */
@@ -291,8 +295,8 @@
 </head>
 <body>
 	<%@include file = "../common/header.jsp" %>
-      <form action="/SemiProject/book.list" method="get">
 	
+      <form action="/SemiProject/book.list" method="get">
         <div id="content">
          <div id="con_1">
             <p id="con_title">도서 전체 목록</p>
@@ -301,7 +305,7 @@
          <div id="con_menu">
             <a href="<%=contextPath %>/book.list?currentPage=1" id="con_menu_1">전체 도서</a>
             <a href="" id="con_menu_2">베스트 셀러</a>
-            <a href="" id="con_menu_3">신간 도서</a> <!--비동기통신 예정-->
+            <a href="<%=contextPath %>/book.new?currentPage=1" id="con_menu_3">신간 도서</a> <!--비동기통신 예정-->
          </div>
          <div id="list_menu">
             <div id="list_menu_1">도서 카테고리 : 
@@ -319,24 +323,24 @@
             <div id="list_num"><!-- 페이징 처리 -->
             	<!-- 왼쪽 가기 버튼 -->
                 <%if(pi.getCurrentPage()!=1) {%>
-                	<button onclick="location.href='<%=contextPath %>/book.list?currentPage=<%=pi.getCurrentPage()-1 %>'">&lt;</button>
+                	<button type="button" onclick="location.href='<%=contextPath %>/book.list?currentPage=<%=pi.getCurrentPage()-1 %>'">&lt;</button>
                 <%} %>
                 
                 <%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++) {%>
                 	<%if(i!=pi.getCurrentPage()) {%>
-                		<button onclick="location.href='<%=contextPath%>/book.list?currentPage=<%=i%>';"><%=i %></button>
+                		<button type="button" onclick="location.href='<%=contextPath%>/book.list?currentPage=<%=i%>';"><%=i %></button>
                 	<%}else {%>
-                		<button disabled><%=i %></button>
+                		<button type="button" disabled><%=i %></button>
                 	<%} %>
                 <%} %>
                 <!-- 오른쪽으로 가는 버튼 -->
                 <%if(pi.getCurrentPage()!=pi.getMaxPage()) {%>
-                	<button onclick="location.href='<%=contextPath%>/book.list?currentPage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
+                	<button type="button" onclick="location.href='<%=contextPath%>/book.list?currentPage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
                 <%} %>
             </div>
             <div id="list_menu_3">
                 <input type="checkbox" id="checkbox" name="cart" onclick="selectAll(this)" >전체선택
-                <button>장바구니</button>
+                <button type="button">장바구니</button>
             </div>
          </div>
                
@@ -388,8 +392,8 @@
                 </table>
             </div>
             <div id="book_3">
-                <button>장바구니</button>
-                <button>바로구매</button>
+                <button type="button">장바구니</button>
+                <button type="button">바로구매</button>
             </div>
         </div>
                 <%} %>
@@ -397,19 +401,19 @@
          <div id="page">
              <!-- 왼쪽 가기 버튼 -->
                 <%if(pi.getCurrentPage()!=1) {%>
-                	<button onclick="location.href='<%=contextPath %>/book.list?currentPage=<%=pi.getCurrentPage()-1 %>'">&lt;</button>
+                	<button type="button" onclick="location.href='<%=contextPath %>/book.list?currentPage=<%=pi.getCurrentPage()-1 %>'">&lt;</button>
                 <%} %>
                 
                 <%for(int i=pi.getStartPage(); i<=pi.getEndPage(); i++) {%>
                 	<%if(i!=pi.getCurrentPage()) {%>
-                		<button onclick="location.href='<%=contextPath%>/book.list?currentPage=<%=i%>';"><%=i %></button>
+                		<button type="button" onclick="location.href='<%=contextPath%>/book.list?currentPage=<%=i%>';"><%=i %></button>
                 	<%}else {%>
-                		<button disabled><%=i %></button>
+                		<button type="button" type="button" disabled><%=i %></button>
                 	<%} %>
                 <%} %>
                 <!-- 오른쪽으로 가는 버튼 -->
                 <%if(pi.getCurrentPage()!=pi.getMaxPage()) {%>
-                	<button onclick="location.href='<%=contextPath%>/book.list?currentPage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
+                	<button type="button" onclick="location.href='<%=contextPath%>/book.list?currentPage=<%=pi.getCurrentPage()+1%>'">&gt;</button>
                 <%} %>
          </div>
         </div>
