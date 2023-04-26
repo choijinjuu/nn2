@@ -6,8 +6,13 @@
 <fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"/>
 <fullyQualifiedTypeName name="com.semi.common.MyFileRenamePolicy"/>
 <fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.semi.product.model.vo.Product"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.semi.product.model.vo.Review"/>
 <fullyQualifiedTypeName name="com.semi.product.model.service.ProductService"/>
 <fullyQualifiedTypeName name="com.google.gson.Gson"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="com.semi.board.model.vo.Board"/>
+<fullyQualifiedTypeName name="com.semi.board.model.service.BoardService"/>
+<fullyQualifiedTypeName name="com.semi.board.model.dao.BoardDao"/>
 </qualifiedTypeNameHistroy>

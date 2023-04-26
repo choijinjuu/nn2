@@ -170,7 +170,8 @@
         }
         #q_btn{
         	position: relative;
-            left: 1050px;
+            left: 1038px;
+            top : 200px;
         }
         /*상품 문의------------------------------------------------------------*/
         #con_q>*{
@@ -360,7 +361,7 @@
         <div id="con_bar">
             <a href="#con_detail" >상세 정보</a>
             <a href="#con_review" >리뷰</a>
-            <a href="#con_q" >상품 문의</a>
+            <a href="#con_c" >상품 문의</a>
             <a href="#con_c" >교환/환불/배송</a>
         </div>
         <div id="con_detail">
@@ -380,27 +381,25 @@
             </div>
         </div>
         <div id="con_review">
-            <div id="con_review_1">리뷰</div>
+            <div id="con_review_1" style="font-weight: 600;">리뷰</div>
             <div id="con_review_2">
                 <table id="review_t" >
-                    <tr>
-                        <th id="th1">별점</th>
-                        <th id="th2">상품후기</th>
-                        <th id="th3">작성자</th>
-                        <th id="th4">작성일자</th>
-                        <th id="th5">-</th>
-                    </tr>
-                    <tr>
-                        <td>별별별</td>
-                        <td>너무 재밋어요</td>
-                        <td>최진주</td>
-                        <td>2023/02/02</td>
-                        <td></td>
-                    </tr>
+                	<thead>
+	                    <tr>
+	                        <th id="th1">별점</th>
+	                        <th id="th2">상품후기</th>
+	                        <th id="th3">작성자</th>
+	                        <th id="th4">작성일자</th>
+	                        <th id="th5">-</th>
+	                    </tr>                	
+                	</thead>
+                    <tbody id="review_input">
+                    
+                    </tbody>
                 </table>
             </div>
             <div id="con_review_3">
-                <div id="con_review_p"><button>1</button></div>
+                <div id="con_review_p"><pre></pre></div>
                 <div id="con_review_btn">
                 <!--모달 눌렀을때 게시판 나오게-->
 					  <div class="container">
@@ -434,7 +433,7 @@
 					            <div id="modal-body_2">
 					              <div class="text">*리뷰 작성</div>
 					              <div id="subtitle_2">
-					                <textarea name="" id="replyContent" cols="30" rows="10" placeholder="내용을 10자 이상 입력해주세요. 주제와 무관한 댓글, 악플, 배송문의 등의 글은 임의 삭제될 수 있습니다.">리뷰입니다!!</textarea>
+					                <textarea name="" id="replyContent" cols="30" rows="10" placeholder="내용을 10자 이상 입력해주세요. 주제와 무관한 댓글, 악플, 배송문의 등의 글은 임의 삭제될 수 있습니다."></textarea>
 					              </div>
 					            </div>
 					            <div id="modal-body_3">
@@ -463,42 +462,11 @@
                 </div>
             </div>
         </div>
-<pre>
 
-
-
-
-
-
-</pre>
-
-        <div id="con_q">
-            <div id="con_review_1">1:1 문의</div>
-            <div id="con_review_2">
-                <table id="review_t" >
-                    <tr>
-                        <th id="th1">별점</th>
-                        <th id="th2">상품후기</th>
-                        <th id="th3">작성자</th>
-                        <th id="th4">작성일자</th>
-                        <th id="th5">-</th>
-                    </tr>
-                    <tr>
-                        <td>별별별</td>
-                        <td>너무 재밋어요</td>
-                        <td>최진주</td>
-                        <td>2023/02/02</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="con_review_3">
-                <div id="con_review_p"><button>1</button></div>
-                <div id="con_q_btn">
                 	  <!--모달 눌렀을때 게시판 나오게-->
 						  <div class="container">
 						    <button id="q_btn" type="button" data-toggle="modal" data-target="#myModal2">
-						      상담 문의
+						      1:1 문의
 						    </button>
 						  
 						    <!-- The Modal -->
@@ -521,24 +489,20 @@
 						            <pre></pre>
 						            <div id="body_2">
 						              <div id="body_t" style=" width: 20%; height: 100%;">문의 내용</div>
-						              <div style="background-color: blue; width: 80%; height: 200px;"><textarea name="" id="" cols="30" rows="10" style="resize: none; width: 100%; height: 100%; border-color: rgb(196, 195, 195);"></textarea></div>
+						              <div style="background-color: blue; width: 80%; height: 200px;"><textarea name="" id="q_input" cols="30" rows="10" style="resize: none; width: 100%; height: 100%; border-color: rgb(196, 195, 195);"></textarea></div>
 						            </div>
 						          </div>
 						          
 						          <!-- Modal footer -->
 						          <div class="modal-footer">
 						            <button type="reset" id="modal_btn_no" data-dismiss="modal">취소</button>
-						            <button type="submit" id="modal_btn" data-dismiss="modal">등록</button>
+						            <button onclick="insertQ()" id="modal_btn" data-dismiss="modal">등록</button>
 						          </div>
 						          
 						        </div>
 						      </div>
 						    </div>
 						   </div> 
-                
-                </div>
-            </div>
-        </div>
 <pre>
 
 
@@ -548,7 +512,7 @@
 
 </pre>
         <div id="con_c">
-            <div id="con_review_1">교환/반품/품절 안내</div>
+            <div id="con_review_1" style="font-weight: 600;">교환/반품/품절 안내</div>
             <div id="ch_1">
                 <table id="change">
                     <tr>
@@ -658,8 +622,68 @@
                 $("#mi").attr("disabled",false);
             }
         }
-
+        
+      //댓글 등록
+        function insertReply(){
+        	$.ajax({
+        		url : "review.in",
+        		data : {memberNo : <%=loginUser.getMemberNo()%>,
+        				productNo : <%=p.getProductNo()%>,
+        				reviewStar : $("#star").val(),
+        				reviewContent : $("#replyContent").val()
+        		},
+        		type : "post",
+        		success : function(result){
+        			alert("댓글 작성이 완료되었습니다!");
+        			selectReview();
+        		}
+        	});
+        };
       
+      	$(function(){
+      		selectReview();
+      	});
+      	
+      	//댓글 목록
+      	function selectReview(){
+      		$.ajax({
+      			url : "review.li",
+      			data : {productNo : <%=p.getProductNo()%>},
+      			type : "get",
+      			success : function(rlist){
+					console.log(rlist);
+					var result = "";
+      				
+						for(var i in rlist){
+							result +="<tr>"
+									+"<td>"+rlist[i].reviewStar+"</td>"
+	                        		+"<td>"+rlist[i].reviewContent+"</td>"
+	                        		+"<td>"+rlist[i].userId+"</td>"
+	                        		+"<td>"+rlist[i].createDate+"</td>"
+	                        		+"<td></td>"
+	                        		+"</tr>";
+						}
+						
+						$("#review_input").html(result);
+      			}
+      		});
+      	};
+      	
+      	//1:1문의 작성
+      	function insertQ(){
+      		$.ajax({
+        		url : "qna.in",
+        		data : {memberNo : <%=loginUser.getMemberNo()%>,
+    					productNo : <%=p.getProductNo()%>,
+    					boardTitle : $("#body_title").val(),
+        				boardContent : $("#q_input").val()
+        		},
+        		type : "post",
+        		success : function(){
+        			alert("1:1문의 작성이 완료되었습니다.");
+        		}
+        	});
+        };
         
     </script>
     

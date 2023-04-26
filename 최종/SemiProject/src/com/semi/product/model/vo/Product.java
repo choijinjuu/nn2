@@ -38,9 +38,10 @@ public class Product {
 		this.productSalesRate = productSalesRate;
 		this.titleImg = titleImg;
 	}
-	public Product(String productName, String productPublisher, String productText, int productPrice,
+	public Product(int productNo, String productName, String productPublisher, String productText, int productPrice,
 			int productSalesRate, String author,String titleImg) {
 		super();
+		this.productNo = productNo;
 		this.productName = productName;
 		this.productPublisher = productPublisher;
 		this.productText = productText;

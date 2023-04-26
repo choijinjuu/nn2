@@ -323,7 +323,7 @@
                                 <li><a href="<%=contextPath %>/book.list?currentPage=1">도서</a>
                                     <ul id="all_list_1">
                                         <li><a href="" style="float: right; width: 206px; text-align:center;">베스트 셀러</a></li>
-                                        <li><a href="" style="float: right; width: 206px; text-align:center;">신간 도서</a></li>
+                                        <li><a href="<%=contextPath %>/book.new?currentPage=1"" style="float: right; width: 206px; text-align:center;">신간 도서</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="<%=contextPath%>/item.list?currentPage=1">쇼핑</a></li>
@@ -345,7 +345,7 @@
                         <li id="book"><a href="<%=contextPath %>/book.list?currentPage=1">도서</a>
                             <ul id="book_li">
                                 <li><a href="">베스트 도서</a></li>
-                                <li><a href="">신간 도서</a></li>
+                                <li><a href="<%=contextPath %>/book.new?currentPage=1"">신간 도서</a></li>
                             </ul>
                         </li>
                         <li><a href="<%=contextPath%>/item.list?currentPage=1">쇼핑</a></li>

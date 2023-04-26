@@ -8,6 +8,7 @@ import com.semi.common.vo.PageInfo;
 import com.semi.product.model.dao.ProductDao;
 import com.semi.product.model.vo.Attachment;
 import com.semi.product.model.vo.Product;
+import com.semi.product.model.vo.Review;
 
 public class ProductService {
 	
@@ -72,6 +73,18 @@ public class ProductService {
 		
 		return list;
 	}
+	
+	//신간도서리스트 조회
+		public ArrayList<Product> selectNewAttachList(PageInfo pi) {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			ArrayList<Product> list = new ProductDao().selectNewAttachList(conn,pi);
+			
+			JDBCTemplate.close(conn);
+			
+			return list;
+		}
 	
 	//카테고리 클릭시 출력되는 도서 리스트 조회
 	public ArrayList<Product> selectAttachmentCList(PageInfo pi, String cate) {
@@ -168,4 +181,33 @@ public class ProductService {
 		return newPro;
 	}
 
+	//댓글 작성
+	public int insertReview(Review r) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new ProductDao().insertReview(conn,r);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	//댓글 목록 조회
+	public ArrayList<Review> selectReview(int productNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Review> rlist = new ProductDao().selectReview(conn,productNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return rlist;
+	}
 }
