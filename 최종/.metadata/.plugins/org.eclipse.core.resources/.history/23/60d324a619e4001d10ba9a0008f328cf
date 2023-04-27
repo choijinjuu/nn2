@@ -1,0 +1,27 @@
+package com.semi.board.review.model.dao;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import com.semi.product.model.dao.ProductDao;
+
+public class ReviewDao {
+	
+private Properties prop = new Properties();
+	
+	public ReviewDao() {
+		
+		String filePath = ProductDao.class.getResource("/sql/board/board-mapper.xml").getPath();
+		
+		try {
+			
+			prop.loadFromXML(new FileInputStream(filePath));
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

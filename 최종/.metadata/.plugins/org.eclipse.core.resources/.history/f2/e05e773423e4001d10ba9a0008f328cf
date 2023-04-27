@@ -1,0 +1,12 @@
+package com.semi.event.point.model.dao;
+
+import java.sql.Connection;
+
+public class PointDao {
+
+	public void upPoint(Connection conn, int memberNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

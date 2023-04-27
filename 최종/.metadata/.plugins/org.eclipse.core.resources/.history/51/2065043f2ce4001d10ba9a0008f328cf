@@ -1,0 +1,65 @@
+package com.semi.board.review.model.service;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.semi.board.review.model.dao.ReviewDao;
+import com.semi.board.review.model.vo.Review;
+import com.semi.common.JDBCTemplate;
+import com.semi.event.point.model.service.PointService;
+
+public class ReviewService {
+	
+	//댓글 작성
+		public int insertReview(Review r) {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = new ReviewDao().insertReview(conn,r);
+			
+			int memberNo = r.getMemberNo();
+			int addP = 500;
+			
+			System.out.println("1");
+			System.out.println("ddd넘어옴"+memberNo+"포인트"+addP);
+			
+			if(result>0) {
+				JDBCTemplate.commit(conn);
+//				new PointService().upPoint(memberNo, addP);
+				System.out.println("2");
+				System.out.println("654654넘어옴"+memberNo+"포인트"+addP);
+			}else {
+				JDBCTemplate.rollback(conn);
+				System.out.println("3");
+			}
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
+		}
+
+		//댓글 목록 조회
+		public ArrayList<Review> selectReview(int productNo) {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			ArrayList<Review> rlist = new ReviewDao().selectReview(conn,productNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return rlist;
+		}
+		
+		//구매한 사람만 댓글버튼 보여주기
+		public int rBtnCk(String productNo) {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int count = new ReviewDao().rBtnCk(conn,productNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return count;
+		}
+
+}

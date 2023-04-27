@@ -1,0 +1,10 @@
+package com.semi.event.point.model.service;
+
+public class PointService {
+
+	public void upPoint(int memberNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

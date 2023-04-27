@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.semi.common.vo.PageInfo"/>
+<fullyQualifiedTypeName name="com.semi.product.model.vo.Attachment"/>
+<fullyQualifiedTypeName name="com.oreilly.servlet.MultipartRequest"/>
+<fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"/>
+<fullyQualifiedTypeName name="com.semi.common.MyFileRenamePolicy"/>
+<fullyQualifiedTypeName name="com.semi.product.model.vo.Product"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.semi.product.model.vo.Review"/>
+<fullyQualifiedTypeName name="com.semi.product.model.service.ProductService"/>
+<fullyQualifiedTypeName name="com.google.gson.Gson"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="com.semi.board.model.dao.BoardDao"/>
+<fullyQualifiedTypeName name="com.semi.board.model.vo.Board"/>
+<fullyQualifiedTypeName name="com.semi.board.model.service.BoardService"/>
+<fullyQualifiedTypeName name="com.semi.board.qna.model.service.BoardService"/>
+<fullyQualifiedTypeName name="com.semi.board.qna.model.vo.Board"/>
+<fullyQualifiedTypeName name="com.semi.board.review.model.vo.Review"/>
+<fullyQualifiedTypeName name="com.semi.board.review.model.dao.ReviewDao"/>
+<fullyQualifiedTypeName name="com.semi.board.review.model.service.ReviewService"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="com.semi.event.point.model.service.PointService"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="com.semi.event.point.model.dao.PointDao"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="com.semi.common.JDBCTemplate"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+</qualifiedTypeNameHistroy>
