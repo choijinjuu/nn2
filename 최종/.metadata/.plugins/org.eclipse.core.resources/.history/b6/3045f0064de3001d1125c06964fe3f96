@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-	<!--  pna작성-->
-	<entry key="insertReview">
-		INSERT INTO REVIEW(REVIEW_NO,MEMBER_NO,PRODUCT_NO,REVIEW_STAR,REVIEW_CONTENT)
-		VALUES(SEQ_RNO.NEXTVAL,?,?,?,?)
-	</entry>
-</properties>
