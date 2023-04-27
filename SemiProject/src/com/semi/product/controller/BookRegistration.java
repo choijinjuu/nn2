@@ -1,6 +1,5 @@
 package com.semi.product.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -90,9 +89,7 @@ public class BookRegistration extends HttpServlet {
 				request.getSession().setAttribute("alertMsg", "상품 등록 완료");
 			}else {
 				if(list!=null) {
-					for(int i=0; i<list.size(); i++) {
-						new File(savePath+list.get(i).getAttachmentChange()).delete(); //실패시 파일 삭제..썸네일만 삭제 되는중.. 추후 상세이미지도 삭제해야돔...
-					}
+//					new File(savePath+list.getAttachmentName()).delete(); 파일 삭제
 				}
 			}
 		};

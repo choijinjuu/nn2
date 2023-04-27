@@ -710,29 +710,21 @@
 		/* 주문 조합 정보란 최신화 */
 		setTotalInfo();
 		
-		/* 창을 벗어날때 경고문 */
-	    /* var checkload = true;
+		/* 창을 벗어날때 알림 */
+	    var checkload = true;
+		//결제 버튼을 누르면 알림창이 뜨지 않음
 	    $(".order_btn").click(function () {
 	        checkload = false;
+	        console.log(checkload);
 	    });
-	    $(window).on("beforeunload", function () {
-	        if (checkload == true) return "진행중인 주문을 취소하시겠습니까?";
-	    }); */
+	    
+    	$(window).bind("beforeunload", function (e){
+	    	if (checkload == true) {
+    			return "창을 닫으실래요?";
+			}
+    	});
+	    
 	});
-	
-	/*기본주소지와 새로운주소지 클릭할때 히든인풋에 입력*/
-	/* $(function () {
-	       $(".address_btn_1").click(function () {
-	        $('#sc1').prop('checked',true);
-	        $('#sc2').prop('checked',false);
-	        selectInput1();
-	       });
-	       $(".address_btn_2").click(function () {
-	        $('#sc1').prop('checked',false);
-	        $('#sc2').prop('checked',true);
-	        selectInput2();
-	       });
-	    }); */
 	
 	/*기본주소지 입력 */
     function selectInput1() {
@@ -961,7 +953,7 @@
     	/* 사용 포인트 */
     	usePoint = $("#input-point").val();
     	
-    	finalTotalPrice = totalPrice - usePoint;	
+    	finalTotalPrice = finalTotalPrice - usePoint;	
     	
     	/* 값 삽입 */
     	// 총 가격
