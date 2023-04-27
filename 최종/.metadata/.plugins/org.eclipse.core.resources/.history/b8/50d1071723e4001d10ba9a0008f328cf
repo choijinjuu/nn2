@@ -1,0 +1,5 @@
+package com.semi.event.point.model.dao;
+
+public class PointDao {
+
+}
