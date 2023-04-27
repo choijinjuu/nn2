@@ -47,7 +47,7 @@ public class OrderInsertController extends HttpServlet {
 //		for (int i = 0; i < cartIds.length; i++) {
 //            System.out.println("newArr[" + i + "] = " + cartIds[i]);
 //        } 확인용
-		
+		new OrderService().deleteOrder(userNo);
 		for (int i = 0; i < productNos.length; i++) {
 			new OrderService().insertChecked(productNos[i],userNo);
 		}

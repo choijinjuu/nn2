@@ -216,27 +216,6 @@
             border: 1px solid rgb(148, 146, 146);
             background-color: none;
         }
-        
-        /*상품 없을시========================*/
-		    #none_div{
-		      /* background-color: aqua; */
-		      width: 1200px;
-		      height: 80px;
-		      margin: auto;
-		      border: 1px solid rgb(214, 211, 211);
-		      border-left: none;
-		      border-right: none;
-		      color: rgb(161, 161, 161);
-		      font-size: 15px;
-		    }
-		    #none_td{
-		      /* background-color: blue; */
-		      text-align: center;
-		      position: relative;
-		      left: 500px;
-		      top: 23px;
-		    }
-		    
         /*체크박스-----------------------------------------------------------*/
         #check{
             width: 30px;
@@ -325,12 +304,12 @@
          </div>
          <div id="con_menu">
             <a href="<%=contextPath %>/book.list?currentPage=1" id="con_menu_1">전체 도서</a>
-            <a href="<%=contextPath %>/book.be?currentPage=1" id="con_menu_2">베스트 셀러</a>
+            <a href="" id="con_menu_2">베스트 셀러</a>
             <a href="<%=contextPath %>/book.new?currentPage=1" id="con_menu_3">신간 도서</a> <!--비동기통신 예정-->
          </div>
          <div id="list_menu">
             <div id="list_menu_1">도서 카테고리 : 
-                <select name="cate" id="cate">
+                <select name="cate">
                     <option value="1">소설</option>
                     <option value="2">에세이</option>
                     <option value="3">자기계발</option>
@@ -368,13 +347,9 @@
                 
                 
             	<%if(list.isEmpty()) {%>
-            		<div id="none_div">
-			            <table id="none_table">
-			              <td>
-			                <td id="none_td">도서 목록이 존재하지 않습니다.</td>
-			              </td>
-			            </table>
-			          </div>
+            		<tr>
+            			<td>도서 목록이 존재하지 않습니다.</td>
+            		</tr>
             	<%} else {%>
             	
             	<%for(Product p : list) {%>
@@ -417,7 +392,8 @@
                 </table>
             </div>
             <div id="book_3">
-                <button type="button">장바구니</button>
+                <button type="button" onclick="selectCart(this);">장바구니</button>
+                <input type="hidden" value="<%=p.getProductNo()%>"> 
                 <button type="button">바로구매</button>
             </div>
         </div>
@@ -445,13 +421,14 @@
        </form>
         
         <script>
+        	//체크박스 전체 선택
             function selectAll(selectAll){
                 var checkboxes = document.getElementsByName('cart');
                 /*console.log(checkboxes)*/
 
                 checkboxes.forEach((checkboxes)=>checkboxes.checked=selectAll.checked);
             }
-            
+            //디테일 페이지 이동
             $(function(){
             	$("#book_2>table>tbody>#num").click(function(){
             		//console.log(this);
@@ -461,14 +438,78 @@
             	});
             });
             
-           /*  $("#cate").change(function(){//카테고리 값 변경 후 유지하기 안되네..........
-            	var num = $("#cate").val();
-            	console.log($("#cate").val())
-            	console.log(num);
-            	
-            	console.log(this);
-            	$(this).var('num').prop("selected",true);
-            }); */
+            var cartNo = 0;
+    		//장바구니 조회
+    		function selectCart(cart) {
+    			var shopnum = $("input[name=shopnum]")
+    			$.ajax({
+    				url : "<%=request.getContextPath()%>/select.sc",
+    				data : {
+    					usernum:<%=loginUser.getMemberNo()%>,
+    					productnum:cart.parentElement.children[1].value	
+    					},
+    				type : "get",
+    				success: function(result){
+    					if (result != null && result.productNo == cart.parentElement.children[1].value) {
+    						cartNo = result.cartId;
+    						if (confirm("선택한 상품이 이미 장바구니에 있습니다.\n수량을 추가하시겠습니까?")) {
+    							plusQty(cart);
+    							console.log("추가");
+    						console.log(cart.parentElement.children[1].value);
+    						}
+    					}else {
+    						addCart(cart);
+    						console.log("새로");
+    						console.log(cart.parentElement.children[1].value);
+    					}
+    				},
+    				error : function(result){
+    					console.log("통신실패");
+    				}
+    			});
+    		}
+    		
+    		//장바구니 수량 추가
+    		function plusQty(cart) {
+    			$.ajax({
+    				url : "<%=request.getContextPath()%>/plusQty.sc",
+    				data : { 
+    					cartId:cartNo,
+    					productNo:cart.parentElement.children[1].value,
+    					cnt:"1"
+    				},
+    				type : "post",
+    				success: function(result){
+    					if (confirm("장바구니로 이동하시겠습니까?")) {
+    						location.replace("<%=request.getContextPath()%>/list.sc");
+    					}
+    				},
+    				error : function(result){
+    					console.log("통신실패");
+    				}
+    			});
+    		}
+    		
+    		//장바구니 추가
+    		function addCart(cart) {
+    			$.ajax({
+    				url : "<%=request.getContextPath()%>/insert.sc",
+    				data : {
+    					usernum:<%=loginUser.getMemberNo()%>,
+    					shopnum:cart.parentElement.children[1].value,
+    					cnt:"1"
+    				},
+    				type : "post",
+    				success: function(result){
+    					if (confirm("장바구니로 이동하시겠습니까?")) {
+    						location.replace("<%=request.getContextPath()%>/list.sc");
+    					}
+    				},
+    				error : function(result){
+    					console.log("통신실패");
+    				}
+    			});
+    		}
         </script>
         
        	<%@include file = "../common/footer.jsp" %>

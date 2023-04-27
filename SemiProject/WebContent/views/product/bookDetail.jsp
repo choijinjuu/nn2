@@ -168,9 +168,6 @@
             top: 10px;
             left: 8px;
         }
-        #R_btn{
-        	visibility : hidden;
-        }
         #q_btn{
         	position: relative;
             left: 1038px;
@@ -465,13 +462,13 @@
                 </div>
             </div>
         </div>
+
                 	  <!--모달 눌렀을때 게시판 나오게-->
 						  <div class="container">
-						    <button id="q_btn" onclick="q_btn_on()" type="button" data-toggle="modal" data-target="#myModal2">
+						    <button id="q_btn" type="button" data-toggle="modal" data-target="#myModal2">
 						      1:1 문의
 						    </button>
 						  
-					<%if(loginUser!=null) {//로그인한 회원에게만 1:1 문의창 보여주기%>
 						    <!-- The Modal -->
 						      <div class="modal" id="myModal2">
 						        <div class="modal-dialog">
@@ -505,7 +502,6 @@
 						        </div>
 						      </div>
 						    </div>
-							<%} %>
 						   </div> 
 <pre>
 
@@ -521,7 +517,7 @@
                 <table id="change">
                     <tr>
                         <th>
-                            반품/교환 방법...마지막 바꿈
+                            반품/교환 방법
                         </th>
                         <td>
                             마이페이지 > 주문배송조회 > 반품/교환신청 ,<br>
@@ -627,20 +623,6 @@
             }
         }
         
-        //댓글 버튼
-        <%if (loginUser!=null){%> //로그인 되어있으며
-        $(function(){ //상품 구매한 회원일시 버튼 보이기
-        	$.ajax({
-        		url : "review.btn",
-        		data : {productNo : <%=p.getProductNo()%>},
-        		type : "post",
-        		success : function(count){
-        			if(count>0){
-        				$("#R_btn").css('visibility','visible');
-        			}
-        		}
-        	});
-        });
 		var cartNo = 0;
 		//장바구니 조회
 		function selectCart() {
@@ -710,11 +692,8 @@
 				}
 			});
 		}
-        <%}%>
         
       //댓글 등록
-      <%if (loginUser!=null){//로그인이 되어있다면%>
-    	  
         function insertReply(){
         	$.ajax({
         		url : "review.in",
@@ -726,20 +705,14 @@
         		type : "post",
         		success : function(result){
         			alert("댓글 작성이 완료되었습니다!");
-        			
-        			$("#star").val(5),
-        			$("#replyContent").val("");
-        			
         			selectReview();
         		}
         	});
         };
-      <%}%>
       
       	$(function(){
       		selectReview();
       	});
-      	
       	
       	//댓글 목록
       	function selectReview(){
@@ -748,7 +721,7 @@
       			data : {productNo : <%=p.getProductNo()%>},
       			type : "get",
       			success : function(rlist){
-      				
+					console.log(rlist);
 					var result = "";
       				
 						for(var i in rlist){
@@ -766,37 +739,22 @@
       		});
       	};
       	
-      	/*1:1 문의 */
-      	/*문이 버튼 클릭시*/
-      	<%if (loginUser==null){%>/*로그인 안되어있으면 로그인 페이지로 돌려주기*/
-      		function q_btn_on(){
-					alert("로그인 후 이용이 가능합니다."); 
-					location.href = "<%=contextPath%>/logform.me"
-      			};
-      	<%}%>
-      	
-      	
-      	/*문의 등록시*/
-		<%if (loginUser!=null) {%>
-	      	function insertQ(){
-	      		$.ajax({
-	        		url : "qna.in",
-	        		data : {memberNo : <%=loginUser.getMemberNo()%>,
-	    					productNo : <%=p.getProductNo()%>,
-	    					boardTitle : $("#body_title").val(),
-	        				boardContent : $("#q_input").val()
-	        		},
-	        		type : "post",
-	        		success : function(){
-	        			
-	        			alert("1:1문의 작성이 완료되었습니다.");
-	        			
-	        			$("#body_title").val("");
-	        			$("#q_input").val("");
-	        		}
-	        	});
-	        };
-        <%}%>
+      	//1:1문의 작성
+      	function insertQ(){
+      		$.ajax({
+        		url : "qna.in",
+        		data : {memberNo : <%=loginUser.getMemberNo()%>,
+    					productNo : <%=p.getProductNo()%>,
+    					boardTitle : $("#body_title").val(),
+        				boardContent : $("#q_input").val()
+        		},
+        		type : "post",
+        		success : function(){
+        			alert("1:1문의 작성이 완료되었습니다.");
+        		}
+        	});
+        };
+        
     </script>
     
     <%@include file = "../common/footer.jsp" %>

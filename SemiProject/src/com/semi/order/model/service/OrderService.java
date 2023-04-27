@@ -50,4 +50,18 @@ public class OrderService {
 		return result;
 	}
 
+	//주문목록 삭제 메소드
+	public void deleteOrder(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new OrderDao().deleteOrder(conn,userNo);
+		
+		if (result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+	}
+
 }

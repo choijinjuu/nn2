@@ -33,7 +33,6 @@ public class BookListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 				//페이징바 처리
 				int listCount; //현재 총 게시글의 개수
 				int currentPage; //현재 페이지
@@ -44,50 +43,35 @@ public class BookListController extends HttpServlet {
 				int startPage; //페이지 하단에 보여질 페이징바의 시작수
 				int endPage; //페이지 하단에 보여질 페이징바의 끝 수
 				
-				PageInfo pi = null;
-				ArrayList<Product> list = null;
-				String cate = request.getParameter("cate");
-
-				if(cate==null) {//카테고리에 넘어온게 없으면
-					
-					listCount = new ProductService().selectListCount(); //전체 도서 목록 리스트 게시글 수
-					currentPage = Integer.parseInt(request.getParameter("currentPage").trim());
-					pageLimit = 10;
-					boardLimit = 8;
-					
-					maxPage = (int)Math.ceil((double)listCount/boardLimit);
-					startPage = (currentPage-1)/pageLimit*pageLimit+1;
-					endPage = startPage+pageLimit-1;
-					
-					if(endPage>maxPage) {
-						endPage = maxPage;
-					}
-					
-					pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-					
-					list = new ProductService().selectAttachmentList(pi);
-					
-				}else {//카테고리 클릭시
-					
-					listCount = new ProductService().selectCListCount(cate); //카테고리 목록 리스트 게시글 수
-					currentPage = Integer.parseInt(request.getParameter("currentPage").trim());
-					pageLimit = 10;
-					boardLimit = 8;
-					
-					maxPage = (int)Math.ceil((double)listCount/boardLimit);
-					startPage = (currentPage-1)/pageLimit*pageLimit+1;
-					endPage = startPage+pageLimit-1;
-					
-					if(endPage>maxPage) {
-						endPage = maxPage;
-					}
-					
-					pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-					
-					list = new ProductService().selectAttachmentCList(pi,cate);
+				listCount = new ProductService().selectListCount();
+				currentPage = Integer.parseInt(request.getParameter("currentPage").trim());
+				pageLimit = 10;
+				boardLimit = 8;
 				
+				maxPage = (int)Math.ceil((double)listCount/boardLimit);
+				startPage = (currentPage-1)/pageLimit*pageLimit+1;
+				endPage = startPage+pageLimit-1;
+				
+				if(endPage>maxPage) {
+					endPage = maxPage;
 				}
-
+				
+				PageInfo pi = new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
+				
+//				System.out.println("겟 옴..");
+				String cate = request.getParameter("cate");
+//				System.out.println(cate);
+				
+				ArrayList<Product> list = null;
+				
+				//페이지에 보여질 게시글 리스트
+				if(cate==null) {
+					list = new ProductService().selectAttachmentList(pi);
+				}else {
+					list = new ProductService().selectAttachmentCList(pi,cate);
+				}
+//				System.out.println(list);
+				
 				request.setAttribute("list", list);
 				request.setAttribute("pi", pi);
 

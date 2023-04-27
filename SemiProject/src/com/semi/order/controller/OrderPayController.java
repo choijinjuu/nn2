@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.semi.member.model.vo.Member;
 import com.semi.order.model.service.OrderService;
 import com.semi.order.model.vo.Payment;
+import com.semi.shoppingcart.model.service.ShoppingCartService;
 
 /**
  * Servlet implementation class OrderPayController
@@ -59,12 +60,23 @@ public class OrderPayController extends HttpServlet {
 		
 		int result = new OrderService().orderPayment(p);
 		
+		String[] productNum = productNo.split(",");
+		System.out.println(productNum);
+		int[] productNums = new int[productNum.length];
+		for (int i = 0; i < productNum.length; i++) {
+			productNums[i] = Integer.parseInt(productNum[i]);
+		}
+		
 //		System.out.println(p);
 		
 		if (result>0) {
+			for (int i = 0; i < productNums.length; i++) {
+				new ShoppingCartService().delChecked(productNums[i],userNo);
+			}
 			response.sendRedirect(request.getContextPath()+"/orderCp.od");
 		}else {
 			System.out.println("결제실패");
+			
 		}
 	}
 

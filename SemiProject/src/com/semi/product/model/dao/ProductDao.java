@@ -12,8 +12,10 @@ import java.util.Properties;
 
 import com.semi.common.JDBCTemplate;
 import com.semi.common.vo.PageInfo;
+import com.semi.member.model.dao.MemberDao;
 import com.semi.product.model.vo.Attachment;
 import com.semi.product.model.vo.Product;
+import com.semi.product.model.vo.Review;
 
 public class ProductDao {
 	
@@ -212,49 +214,6 @@ public class ProductDao {
 		return list;
 	}
 	
-	//베스트 도서 조회(출고순)
-	public ArrayList<Product> selectBestAttachList(Connection conn, PageInfo pi) {
-		ArrayList<Product> list = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectBestAttachList");
-
-		try {
-			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit()+1;
-			int endRow = (startRow+pi.getBoardLimit())-1;
-			
-			pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, startRow);
-				pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Product(rset.getInt("PRODUCT_NO")
-						,rset.getString("PRODUCT_CATEGORY")
-						,rset.getString("PRODUCT_NAME")
-						,rset.getString("PRODUCT_PUBLISHER")
-						,rset.getString("PRODUCT_TEXT")
-						,rset.getInt("PRODUCT_PRICE")
-						,rset.getInt("PRODUCT_SALES_RATE")
-						,rset.getString("AUTHOR")
-						,rset.getDate("CREATE_DATE")
-						,rset.getString("titleImg")));
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
-		}
-		return list;
-		
-		
-	}
-
 	//신간도서리스트 조회
 		public ArrayList<Product> selectNewAttachList(Connection conn, PageInfo pi) {
 			
@@ -345,7 +304,7 @@ public class ProductDao {
 		ResultSet rset = null;
 		Statement stmt = null;
 		
-		String sql = prop.getProperty("selectListCount");
+		String sql = prop.getProperty("selectProListCount");
 		
 		try {
 			stmt = conn.createStatement();
@@ -362,36 +321,6 @@ public class ProductDao {
 		}finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(stmt);
-		}
-		
-		return listCount;
-	}
-	
-	//카테고리별 도서 총 게시물 수
-	public int selectCListCount(Connection conn, String cate) {
-		
-		int listCount = 0;
-		ResultSet rset = null;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("selectProCListCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, cate);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				listCount = rset.getInt("COUNT");
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
 		}
 		
 		return listCount;
@@ -425,7 +354,6 @@ public class ProductDao {
 			
 			return listCount;
 		}
-	
 
 	//도서, 상품 상세 페이지
 	public Product productDetail(Connection conn, int pno) {
@@ -554,4 +482,65 @@ public class ProductDao {
 		}
 		return newPro;
 	}
+
+	//리플 작성
+	public int insertReview(Connection conn, Review r) {
+		
+		int result = 0;
+		PreparedStatement pstmt =null;
+		
+		String sql = prop.getProperty("insertReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, r.getMemberNo());
+				pstmt.setInt(2, r.getProductNo());
+				pstmt.setInt(3, r.getReviewStar());
+				pstmt.setString(4, r.getReviewContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	//댓글 목록 조회
+	public ArrayList<Review> selectReview(Connection conn, int productNo) {
+		
+		ArrayList<Review> rlist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, productNo);
+				
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				rlist.add(new Review(rset.getInt("REVIEW_STAR"),
+									rset.getString("REVIEW_CONTENT"),
+									rset.getString("CREATE_DATE"),
+									rset.getString("MEMBER_ID")));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return rlist;
+	}
+
+
 }

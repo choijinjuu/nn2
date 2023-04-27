@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!--  리뷰작성-->
+	<entry key="rBtnCk">
+		SELECT PRODUCT_NO
+		FROM PAYMENT
+		WHERE PRODUCT_NO = ?
+	</entry>
+	<!--  리뷰작성-->
+	<entry key="insertReview">
+		INSERT INTO REVIEW(REVIEW_NO,MEMBER_NO,PRODUCT_NO,REVIEW_STAR,REVIEW_CONTENT)
+		VALUES(SEQ_RNO.NEXTVAL,?,?,?,?)
+	</entry>
+	<!--  리뷰리스트 출력-->
+	<entry key="selectReview">
+		SELECT REVIEW_STAR,REVIEW_CONTENT,CREATE_DATE,MEMBER_ID
+		FROM REVIEW R
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE PRODUCT_NO = ?
+	</entry>
+	<!--  pna작성-->
+	<entry key="insertQna">
+		INSERT INTO BOARD(BOARD_NO,MEMBER_NO,PRODUCT_NO,BOARD_CATEGORY,BOARD_TITLE,BOARD_CONTENT)
+		VALUES (SEQ_BNO.NEXTVAL,?,?,3,?,?)
+	</entry>
+</properties>
