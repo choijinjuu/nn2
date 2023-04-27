@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Review {
 
-	private int reviewNo;			//	REVIEW_NO	
+	private int reviewNo;			//	REVIEW_NO	이거고침
 	private int memberNo;			//	MEMBER_NO	NUMBER
 	private int productNo;			//	PRODUCT_NO	NUMBER
 	private int reviewStar;				//	REVIEW_STAR	NUMBER
