@@ -1,0 +1,5 @@
+package com.semi.order.model.vo;
+
+public class Payment {
+		
+}

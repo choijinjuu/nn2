@@ -11,8 +11,11 @@
 <fullyQualifiedTypeName name="com.semi.product.model.vo.Review"/>
 <fullyQualifiedTypeName name="com.semi.product.model.service.ProductService"/>
 <fullyQualifiedTypeName name="com.google.gson.Gson"/>
-<fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="com.semi.board.model.vo.Board"/>
 <fullyQualifiedTypeName name="com.semi.board.model.service.BoardService"/>
 <fullyQualifiedTypeName name="com.semi.board.model.dao.BoardDao"/>
+<fullyQualifiedTypeName name="com.semi.shoppingcart.model.service.ShoppingCartService"/>
+<fullyQualifiedTypeName name="com.semi.member.model.vo.Member"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
 </qualifiedTypeNameHistroy>

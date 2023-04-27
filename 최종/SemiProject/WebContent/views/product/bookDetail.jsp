@@ -354,7 +354,7 @@
                     <td colspan="3">원</td>
                 </tr>
                 <tr>
-                    <td colspan="4"><button id="h_btn_1">장바구니</button><button id="h_btn_2">바로구매</button></td>
+                    <td colspan="4"><button type="button" id="h_btn_1" onclick="selectCart();">장바구니</button><button id="h_btn_2">바로구매</button></td>
                 </tr>
             </table>
         </div>
@@ -622,6 +622,76 @@
                 $("#mi").attr("disabled",false);
             }
         }
+        
+		var cartNo = 0;
+		//장바구니 조회
+		function selectCart() {
+			var shopnum = $("input[name=shopnum]")
+			$.ajax({
+				url : "<%=request.getContextPath()%>/select.sc",
+				data : {
+					usernum:<%=loginUser.getMemberNo()%>,
+					productnum:<%=p.getProductNo()%>	
+					},
+				type : "get",
+				success: function(result){
+					if (result != null && result.productNo==<%=p.getProductNo()%>) {
+						cartNo = result.cartId;
+						
+						if (confirm("선택한 상품이 이미 장바구니에 있습니다.\n수량을 추가하시겠습니까?")) {
+							plusQty();
+						}
+					}else {
+						addCart();
+					}
+				},
+				error : function(result){
+					console.log("통신실패");
+				}
+			});
+		}
+		
+		//장바구니 수량 추가
+		function plusQty() {
+			$.ajax({
+				url : "<%=request.getContextPath()%>/plusQty.sc",
+				data : { 
+					cartId:cartNo,
+					productNo:<%=p.getProductNo()%>,
+					cnt:$("input[name=result]").val()
+				},
+				type : "post",
+				success: function(result){
+					if (confirm("장바구니로 이동하시겠습니까?")) {
+						location.replace("<%=request.getContextPath()%>/list.sc");
+					}
+				},
+				error : function(result){
+					console.log("통신실패");
+				}
+			});
+		}
+		
+		//장바구니 추가
+		function addCart() {
+			$.ajax({
+				url : "<%=request.getContextPath()%>/insert.sc",
+				data : {
+					usernum:<%=loginUser.getMemberNo()%>,
+					shopnum:<%=p.getProductNo()%>,
+					cnt:$("input[name=result]").val()
+				},
+				type : "post",
+				success: function(result){
+					if (confirm("장바구니로 이동하시겠습니까?")) {
+						location.replace("<%=request.getContextPath()%>/list.sc");
+					}
+				},
+				error : function(result){
+					console.log("통신실패");
+				}
+			});
+		}
         
       //댓글 등록
         function insertReply(){
