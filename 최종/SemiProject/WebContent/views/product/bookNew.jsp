@@ -216,6 +216,27 @@
             border: 1px solid rgb(148, 146, 146);
             background-color: none;
         }
+        
+        /*상품 없을시========================*/
+		    #none_div{
+		      /* background-color: aqua; */
+		      width: 1200px;
+		      height: 80px;
+		      margin: auto;
+		      border: 1px solid rgb(214, 211, 211);
+		      border-left: none;
+		      border-right: none;
+		      color: rgb(161, 161, 161);
+		      font-size: 15px;
+		    }
+		    #none_td{
+		      /* background-color: blue; */
+		      text-align: center;
+		      position: relative;
+		      left: 500px;
+		      top: 23px;
+		    }
+		    
         /*체크박스-----------------------------------------------------------*/
         #check{
             width: 30px;
@@ -303,22 +324,11 @@
          </div>
          <div id="con_menu">
             <a href="<%=contextPath %>/book.list?currentPage=1" id="con_menu_1">전체 도서</a>
-            <a href="" id="con_menu_2">베스트 셀러</a>
+            <a href="<%=contextPath %>/book.be?currentPage=1" id="con_menu_2">베스트 셀러</a>
             <a href="<%=contextPath %>/book.new?currentPage=1" id="con_menu_3">신간 도서</a> <!--비동기통신 예정-->
          </div>
-      <form action="/SemiProject/book.list" method="get">
          <div id="list_menu">
-            <div id="list_menu_1">도서 카테고리 : 
-                <select name="cate">
-                    <option value="1">소설</option>
-                    <option value="2">에세이</option>
-                    <option value="3">자기계발</option>
-                    <option value="4">경제/경영</option>
-                    <option value="5">인문학</option>
-                    <option value="6">정치/사회</option>
-                </select>
-                <input type="hidden" name="currentPage" value="1">
-                <button type="submit">검색</button>
+            <div id="list_menu_1">
             </div>
             <div id="list_num"><!-- 페이징 처리 -->
             	<!-- 왼쪽 가기 버튼 -->
@@ -347,9 +357,13 @@
                 
                 
             	<%if(list.isEmpty()) {%>
-            		<tr>
-            			<td>도서 목록이 존재하지 않습니다.</td>
-            		</tr>
+            		<div id="none_div">
+			            <table id="none_table">
+			              <td>
+			                <td id="none_td">도서 목록이 존재하지 않습니다.</td>
+			              </td>
+			            </table>
+			          </div>
             	<%} else {%>
             	
             	<%for(Product p : list) {%>
@@ -417,7 +431,6 @@
                 <%} %>
          </div>
         </div>
-       </form>
         
         <script>
             function selectAll(selectAll){

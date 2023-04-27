@@ -202,9 +202,10 @@
             position: relative;
             line-height: 2;
             /* background-color: aqua; */
+           
         }
         #all_list_1>li,#customer_1>li{
-            /* border: 1px solid red; */
+            /*border: 1px solid red;*/
             padding: 0px;
             width: 100%;
             height: 30px;
@@ -221,6 +222,7 @@
         }
         #all_list_1 a:hover{
             background-color: white;
+            
         }
         #customer_1 a:hover{
             background-color: white;
@@ -322,8 +324,8 @@
                             <ul id="all_list">
                                 <li><a href="<%=contextPath %>/book.list?currentPage=1">도서</a>
                                     <ul id="all_list_1">
-                                        <li><a href="" style="float: right; width: 206px; text-align:center;">베스트 셀러</a></li>
-                                        <li><a href="<%=contextPath %>/book.new?currentPage=1"" style="float: right; width: 206px; text-align:center;">신간 도서</a></li>
+                                        <li><a href="<%=contextPath %>/book.be?currentPage=1" style="float: right; width: 206px; text-align:center;">베스트 셀러</a></li>
+                                        <li><a href="<%=contextPath %>/book.new?currentPage=1" style="float: right; width: 206px; text-align:center;">신간 도서</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="<%=contextPath%>/item.list?currentPage=1">쇼핑</a></li>
@@ -344,8 +346,8 @@
                     <ul id="ca_2">
                         <li id="book"><a href="<%=contextPath %>/book.list?currentPage=1">도서</a>
                             <ul id="book_li">
-                                <li><a href="">베스트 도서</a></li>
-                                <li><a href="<%=contextPath %>/book.new?currentPage=1"">신간 도서</a></li>
+                                <li><a href="<%=contextPath%>/book.be?currentPage=1">베스트 도서</a></li>
+                                <li><a href="<%=contextPath %>/book.new?currentPage=1">신간 도서</a></li>
                             </ul>
                         </li>
                         <li><a href="<%=contextPath%>/item.list?currentPage=1">쇼핑</a></li>

@@ -1,0 +1,33 @@
+package com.semi.event.point.model.dao;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.Properties;
+
+import com.semi.product.model.dao.ProductDao;
+
+public class PointDao {
+	
+	private Properties prop = new Properties();
+
+	public PointDao() {
+			
+			String filePath = ProductDao.class.getResource("/sql/event/event-mapper.xml").getPath();
+			
+			try {
+				
+				prop.loadFromXML(new FileInputStream(filePath));
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+	public void upPoint(Connection conn, int memberNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

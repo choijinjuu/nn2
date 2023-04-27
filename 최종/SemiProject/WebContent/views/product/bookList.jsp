@@ -216,6 +216,27 @@
             border: 1px solid rgb(148, 146, 146);
             background-color: none;
         }
+        
+        /*상품 없을시========================*/
+		    #none_div{
+		      /* background-color: aqua; */
+		      width: 1200px;
+		      height: 80px;
+		      margin: auto;
+		      border: 1px solid rgb(214, 211, 211);
+		      border-left: none;
+		      border-right: none;
+		      color: rgb(161, 161, 161);
+		      font-size: 15px;
+		    }
+		    #none_td{
+		      /* background-color: blue; */
+		      text-align: center;
+		      position: relative;
+		      left: 500px;
+		      top: 23px;
+		    }
+		    
         /*체크박스-----------------------------------------------------------*/
         #check{
             width: 30px;
@@ -304,12 +325,12 @@
          </div>
          <div id="con_menu">
             <a href="<%=contextPath %>/book.list?currentPage=1" id="con_menu_1">전체 도서</a>
-            <a href="" id="con_menu_2">베스트 셀러</a>
+            <a href="<%=contextPath %>/book.be?currentPage=1" id="con_menu_2">베스트 셀러</a>
             <a href="<%=contextPath %>/book.new?currentPage=1" id="con_menu_3">신간 도서</a> <!--비동기통신 예정-->
          </div>
          <div id="list_menu">
             <div id="list_menu_1">도서 카테고리 : 
-                <select name="cate">
+                <select name="cate" id="cate">
                     <option value="1">소설</option>
                     <option value="2">에세이</option>
                     <option value="3">자기계발</option>
@@ -347,9 +368,13 @@
                 
                 
             	<%if(list.isEmpty()) {%>
-            		<tr>
-            			<td>도서 목록이 존재하지 않습니다.</td>
-            		</tr>
+            		<div id="none_div">
+			            <table id="none_table">
+			              <td>
+			                <td id="none_td">도서 목록이 존재하지 않습니다.</td>
+			              </td>
+			            </table>
+			          </div>
             	<%} else {%>
             	
             	<%for(Product p : list) {%>
@@ -436,6 +461,14 @@
             	});
             });
             
+           /*  $("#cate").change(function(){//카테고리 값 변경 후 유지하기 안되네..........
+            	var num = $("#cate").val();
+            	console.log($("#cate").val())
+            	console.log(num);
+            	
+            	console.log(this);
+            	$(this).var('num').prop("selected",true);
+            }); */
         </script>
         
        	<%@include file = "../common/footer.jsp" %>

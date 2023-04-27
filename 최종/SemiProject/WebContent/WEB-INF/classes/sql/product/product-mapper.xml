@@ -55,6 +55,25 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<!-- 페이징 처리 한 베스트도서리스트 -->
+	<entry key="selectBestAttachList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM,A.*
+		      FROM(SELECT O.PRODUCT_NO,P.PRODUCT_CATEGORY,P.PRODUCT_NAME,P.PRODUCT_PUBLISHER,
+		                    P.PRODUCT_TEXT,P.PRODUCT_PRICE,P.PRODUCT_SALES_RATE,P.AUTHOR,
+		                    P.CREATE_DATE,ATTACHMENT_PATH||ATTACHMENT_CHANGE "TITLEIMG",SUM(QUANTITY) "QUANTITY"
+		            FROM P_ORDER O
+		            JOIN PRODUCT P ON (O.PRODUCT_NO=P.PRODUCT_NO)
+		            JOIN ATTACHMENT A ON (O.PRODUCT_NO=A.BOARD_NO)
+		            AND STATUS = 'Y'
+		            AND FILE_LEVEL = '1'
+		            AND PRODUCT_CATEGORY IN (1,2,3,4,5,6)
+		            GROUP BY O.PRODUCT_NO,PRODUCT_CATEGORY,PRODUCT_NAME,PRODUCT_PUBLISHER,PRODUCT_TEXT,PRODUCT_PRICE,
+		                    PRODUCT_SALES_RATE,AUTHOR,CREATE_DATE,ATTACHMENT_PATH||ATTACHMENT_CHANGE
+		            ORDER BY "QUANTITY" DESC)A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	<!-- 페이징 처리 한 신간도서리스트 -->
 	<entry key="selectNewAttachList">
 		SELECT *
@@ -112,6 +131,14 @@
 		AND PRODUCT_CATEGORY IN (1,2,3,4,5,6)
 	</entry>
 	
+	<!-- 도서 카테고리별 리스트 수 -->
+	<entry key="selectProCListCount">
+		SELECT COUNT(*) COUNT
+		FROM PRODUCT
+		WHERE STATUS = 'Y'
+		AND PRODUCT_CATEGORY = ?
+	</entry>
+	
 	<!-- 상품 리스트 수 -->
 	<entry key="selectProListCount">
 		SELECT COUNT(*) COUNT
@@ -166,17 +193,5 @@
 		           AND PRODUCT_CATEGORY = 7
 		           ORDER BY CREATE_DATE DESC)A)
 		WHERE RNUM BETWEEN 1 AND 4
-	</entry>
-	<!--  리뷰작성-->
-	<entry key="insertReview">
-		INSERT INTO REVIEW(REVIEW_NO,MEMBER_NO,PRODUCT_NO,REVIEW_STAR,REVIEW_CONTENT)
-		VALUES(SEQ_RNO.NEXTVAL,?,?,?,?)
-	</entry>
-	<!--  리뷰리스트 출력-->
-	<entry key="selectReview">
-		SELECT REVIEW_STAR,REVIEW_CONTENT,CREATE_DATE,MEMBER_ID
-		FROM REVIEW R
-		JOIN MEMBER USING(MEMBER_NO)
-		WHERE PRODUCT_NO = ?
 	</entry>
 </properties>

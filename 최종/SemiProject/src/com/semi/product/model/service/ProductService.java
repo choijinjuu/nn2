@@ -3,12 +3,12 @@ package com.semi.product.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.semi.board.review.model.vo.Review;
 import com.semi.common.JDBCTemplate;
 import com.semi.common.vo.PageInfo;
 import com.semi.product.model.dao.ProductDao;
 import com.semi.product.model.vo.Attachment;
 import com.semi.product.model.vo.Product;
-import com.semi.product.model.vo.Review;
 
 public class ProductService {
 	
@@ -62,7 +62,7 @@ public class ProductService {
 		return result*result2;
 	}
 
-	//도서리스트 조회
+	//전체도서리스트 조회
 	public ArrayList<Product> selectAttachmentList(PageInfo pi) {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -74,6 +74,20 @@ public class ProductService {
 		return list;
 	}
 	
+	//베스트 도서 리스트 조회(출고순)
+	public ArrayList<Product> selectBestAttachList(PageInfo pi) {
+
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Product> list = new ProductDao().selectBestAttachList(conn,pi);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+		
+		
+	}
+
 	//신간도서리스트 조회
 		public ArrayList<Product> selectNewAttachList(PageInfo pi) {
 			
@@ -134,7 +148,19 @@ public class ProductService {
 			return listCount;
 		}
 
-	//도서,상품 상세 페이지
+	//카테고리 총 게시물 수
+	public int selectCListCount(String cate) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int listCount = new ProductDao().selectCListCount(conn,cate);
+		
+		JDBCTemplate.close(conn);
+		
+		return listCount;
+	}
+
+		//도서,상품 상세 페이지
 	public Product productDetail(int pno) {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -179,35 +205,5 @@ public class ProductService {
 		JDBCTemplate.close(conn);
 		
 		return newPro;
-	}
-
-	//댓글 작성
-	public int insertReview(Review r) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = new ProductDao().insertReview(conn,r);
-		
-		if(result>0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		JDBCTemplate.close(conn);
-		
-		return result;
-	}
-
-	//댓글 목록 조회
-	public ArrayList<Review> selectReview(int productNo) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		ArrayList<Review> rlist = new ProductDao().selectReview(conn,productNo);
-		
-		JDBCTemplate.close(conn);
-		
-		return rlist;
 	}
 }
