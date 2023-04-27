@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Review {
 
 	private int reviewNo;			//	REVIEW_NO	이거고침
-	private int memberNo;			//	MEMBER_NO	NUMBER
+	private int memberNo;			//	MEMBER_NO	진주는 이걸 만짐..
 	private int productNo;			//	PRODUCT_NO	NUMBER
 	private int reviewStar;				//	REVIEW_STAR	NUMBER
 	private String reviewContent;	//	REVIEW_CONTENT	VARCHAR2(600 BYTE)
