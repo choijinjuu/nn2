@@ -302,7 +302,7 @@
                 <%}else if(loginUser != null){ %>
                 <div id="login_mem" style="background-color: blueviolet;">
                     <a href="<%=contextPath %>/myPage.me" id="login_btn">마이페이지</a>
-                    <a href="" id="mem_btn">장바구니</a>
+                    <a href="<%=contextPath%>/list.sc" id="mem_btn">장바구니</a>
                     <a href="<%=contextPath %>/logout.me" id="mem_btn">로그아웃</a>
                 </div>
                  <%} %>
